@@ -1,0 +1,29 @@
+how to run the test cases from testcase.txt
+1) first run make
+2) input port number
+
+./WTFserver 9123
+ will run the server on port 9123
+
+3)chdir() function will change the working directory
+
+WTFtest.c tests all the functions in the test cases.
+1)The client is initailize by making a .configure file
+2)CREATE a project called "initializedestroy"
+3)DESTROY project "initializedestroy"
+4)CREATE another project "TestProject"
+5)ADD 3 files
+6)REMOVE 1 file
+7)COMMIT the changes to the server
+8)server responds successful commit
+9)PUSH the changes to the server
+10)STDOUT prints all changes
+11)CURRENTVERSION is tested successfully
+12)REMOVE project from client
+13)call CHECKOUT successfully, server clones project into client repository
+14)call UPDATE with cloned repository, client prints "Up to Date"
+15)call UPGRADE, prints .Update is empty, client is up to date
+16)call HISTORY, prints all the changes 
+17)call ROLLBACK, reverts TestProject to version 1
+
+WTFtest.c essentially tests all successful cases of testcases.txt

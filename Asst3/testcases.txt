@@ -1,0 +1,115 @@
+The following test cases for each function follow as order introduced in project description.
+
+ ./WTF checkout <project name>
+(TEST) Project name doesn't exist on server
+(RESPONSE) Server responds with printing error message
+
+(TEST) Project name already exists on client
+(RESPONSE) Client will print error message saying project already exists
+
+(TEST) Command passes
+(RESPONSE) Server sends files to client, client receives the project.
+
+./WTF update <project name>
+(TEST) attempting to update when project name doesn't exist on server and if client cannot contact the server
+(RESPONSE) Server responds with printing error message
+
+(TEST) .Manifest up to date for both server and client
+(RESPONSE) server will print "up to date"
+
+(TEST).Manifest is different for server and client
+(RESPONSE)generates .Conflict file instead, and prints error
+
+(TEST) server file has different version than client
+(RESPONSE) client will indicate that server has different version, adds line to .Update file, outputs message to STDOUT
+
+(TEST) client .Manifest does not have files that appear on server
+(RESPONSE) client responds by adding line/or creating .Update file, outputs message to STDOUT
+
+(TEST) client .Manifest has files that does not appear on the server
+(RESPONSE) client indicates the files has been removed, adds it to .Update file, output message on STDOUT.
+
+./WTF upgrade <project_name>
+(MUlTIPLE TEST CASES) Project name doesn't exist on server, server cannot be contacted, no .Update on client side, .Conflict exists
+(SAME RESPONSE) Server responds with printing error message
+
+(TEST) valid project and valid .Update file
+(RESPONSE)client requests .Manifest from server, will update client side versions
+
+./WTF commit
+(MUlTIPLE TEST CASES) Project name doesn't exist on server, server cannot be contacted, client cannot fetch server's .Manifest file, if client has .Update file thats not empty, client has .Conflict file.
+(SAME RESPONSE) Server responds with printing error message
+
+(TEST) Modifying a file from client thats present on server
+(RESPONSE) Client will indicate file has been modified, hashcode in .Commit file will be updated, outputs message on STDOUT
+
+(TEST)server .Manifest does not have file, client .Manifest does
+(RESPONSE) Client will indicate file isn't present on server, .Commit updated, output message on STDOUT
+
+(TEST)server .Manifest has file, client .Manifest does not
+(RESPONSE)client will indicate file is to be removed from server,update .Commit, output message on STDOUT
+
+(TEST) files in server .Manifest that have different hash than the client and has higher or same version number
+(RESPONSE) commit fails, prints message to client to synch with repository before committing
+
+./WTF push <project name>
+(MULTIPLE TEST CASES) Project name doesn't exist on server, client cannot communicate with server, client has no .Commit file
+(SAME RESPONSE) fails, Server responds with printing error message
+
+(TEST) client sends different .Commit file to server
+(RESPONSE) Server indicates the commit is not present, prints user should commit before pushing
+
+(TEST) success case, valid push
+(RESPONSE)server reads from .Commit, expire other .Commits, duplicate project directory, write/or remove all files from client to new directory, update new project directory .Manifest, increment version number, unlock and print success message to client.
+
+./WTF create <project name>
+(MULTIPLE TEST CASES) Project name already exist on server, client cannot communicate with server.
+(SAME RESPONSE) fails, Server responds with printing error message
+
+(TEST)Success, none of the above test case present
+(RESPONSE)server will create project folder with the given project name, initialize a .Manifest and send to client, client will set up a local verson of the received project folder and place the .Manifest the server sent in it.
+
+./WTF destroy <project name>
+(MULTIPLE TEST CASES) Project name doesn't exist on server, client cannot communicate with server.
+(SAME RESPONSE) fails, Server responds with printing error message
+
+(TEST) success case, project name exists
+(RESPONSE) server removes the project from the repository, print success message
+
+./WTF add <project name> <filename>
+(TEST CASES) Project name doesn't exist on server
+(SAME RESPONSE) fails, Server responds with printing error message
+
+(TEST) Adding file that already exists but isn't in .Manifest of client
+(RESPONSE) client will add the file to client's .Manifest with new version number and hashcode
+
+./WTF remove <project name> <filename>
+(TEST CASES) Project name doesn't exist on server
+(SAME RESPONSE) fails, Server responds with printing error message
+
+(TEST) Success case, file name trying to remove exists
+(RESPONSE) client will remove file from project and update its flag to !RM, and hashcode to DELETE
+
+./WTF currentversion <project name>
+(TEST CASES) Project name doesn't exist on server
+(SAME RESPONSE) fails, Server responds with printing error message
+
+(TEST)Success case, project name is present
+(RESPONSE) server will send the current version and .Manifest of the project
+
+./WTF history <project name>
+(TEST CASES) Project name doesn't exist on server, or client cant communicate with server
+(SAME RESPONSE) fails, Server responds with printing error message
+
+(TEST)success case, project name exists
+(RESPONSE) server will send a file containing all operations done on the project
+
+./WTF rollback <project name> <version>
+(TEST CASES) Project name doesn't exist on server, client cant communicate with it, or version number invallid.
+(SAME RESPONSE) fails, Server responds with printing error message
+
+(TEST) project name exists, but version is not valid or current version
+(RESPONSE) server will print invalid rollback to client
+
+(TEST) success case, rollback for project that exists
+(RESPONSE) server will revert the project to the inputted version, and print success to client
