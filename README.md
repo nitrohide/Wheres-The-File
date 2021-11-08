@@ -13,7 +13,7 @@ First call “make all” in the WTFserver directory to make the executables. Th
 server executable is stored in the server directory, and the WTF executable will be
 in the client directory. While inside the WTFserver directory, call
 
-* ./server/WTFserver <port-number>
+* ./server/WTFserver <<port-number>>
   
 Then you can run the client executable using
   
