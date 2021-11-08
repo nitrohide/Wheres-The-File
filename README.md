@@ -12,12 +12,18 @@ but they can also rollback to previous versions in the repository.
 First call “make all” in the WTFserver directory to make the executables. The
 server executable is stored in the server directory, and the WTF executable will be
 in the client directory. While inside the WTFserver directory, call
-• ./server/WTFserver <port-number>
+
+* ./server/WTFserver <port-number>
+  
 Then you can run the client executable using
-• ./client/WTF <parameter>
+  
+* ./client/WTF <parameter>
+  
 “Make clean” should then remove the executable and object files, and “make
 test” should build all the files needed to run “WTFtest”. To run WTFtest, call
-• ./WTFtest <port-number>
+  
+* ./WTFtest <port-number>
+  
 ## File Manifests
 The .Manifest files purpose is to allow the changed files being uploaded to the
 server to compare versions more efficiently without having to compare entire
